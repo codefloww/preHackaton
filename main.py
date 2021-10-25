@@ -10,8 +10,6 @@
     #highscores
         #display list of highscores
     #exit
-    
-
 """
 import pygame
 import main_menu
