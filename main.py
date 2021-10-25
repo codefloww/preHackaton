@@ -21,4 +21,15 @@ import highscores
 
 
 def main():
+    running = True
+    #event loop
+    while running:
+        option=main_menu()
+        if option == 'play':
+            game()
+            end_menu()
+        elif option == 'highscores':
+            highscores()
+        else:
+            quit_game()
     
