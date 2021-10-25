@@ -17,6 +17,7 @@ with open('game/highscores.txt', 'r') as highscores:
 for score in highscores_list:
     highscores_list[highscores_list.index(score)] = score[:-1]
 highscores_list.sort(reverse=True)
+highscores_list = highscores_list[:10]
 
 
 myfont = pygame.font.SysFont(None, 40)
