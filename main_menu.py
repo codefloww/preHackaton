@@ -19,25 +19,26 @@ MAIN_BACKGROUND = pygame.transform.scale(
 # initializing screen
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("NAME OF THE GAME")
-# creating and adding to screen title 
+# creating and adding to screen title
 TITLE = pygame.transform.scale(pygame.image.load(
     os.path.join("Assets", "space.png")), (TITLE_WIDTH, TITLE_HEIGHT))
 TITLE_LABEL = TITLE.get_rect().move(WIDTH*3//16, HEIGHT//16)
-#creating buttons with images
+# creating buttons with images
+# button play
 BUTTON_PLAY_IMAGE1 = pygame.transform.scale(pygame.image.load(
     'Assets/buttonstart1.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
 BUTTON_PLAY_IMAGE2 = pygame.transform.scale(pygame.image.load(
     'Assets/buttonstart2.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
 BUTTON_PLAY = BUTTON_PLAY_IMAGE1.get_rect().move(
     WIDTH*5//16, (HEIGHT * 10 // 16) - 50)
-
+# button highscores
 BUTTON_HIGHSCORES_IMAGE1 = pygame.transform.scale(pygame.image.load(
     'Assets/buttonscore1.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
 BUTTON_HIGHSCORES_IMAGE2 = pygame.transform.scale(pygame.image.load(
     'Assets/buttonscore2.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
 BUTTON_HIGHSCORES = BUTTON_HIGHSCORES_IMAGE1.get_rect().move(WIDTH*5 //
-                                                            16, HEIGHT*11//16)
-
+                                                             16, HEIGHT*11//16)
+# button exit
 BUTTON_EXIT_IMAGE1 = pygame.transform.scale(pygame.image.load(
     'Assets/buttonexit1.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
 BUTTON_EXIT_IMAGE2 = pygame.transform.scale(pygame.image.load(
@@ -45,15 +46,20 @@ BUTTON_EXIT_IMAGE2 = pygame.transform.scale(pygame.image.load(
 BUTTON_EXIT = BUTTON_EXIT_IMAGE1.get_rect().move(
     WIDTH*5//16, (HEIGHT * 12 // 16) + 50)
 
-#dictionaries of buttons and their images
+# dictionaries of buttons and their images
 BUTTONS = {"PLAY": BUTTON_PLAY,
            "HIGHSCORES": BUTTON_HIGHSCORES, "EXIT": BUTTON_EXIT}
-IMAGES = {"PLAY": [BUTTON_PLAY_IMAGE1,BUTTON_PLAY_IMAGE2],
-        "HIGHSCORES": [BUTTON_HIGHSCORES_IMAGE1,BUTTON_HIGHSCORES_IMAGE2],
-        "EXIT": [BUTTON_EXIT_IMAGE1,BUTTON_EXIT_IMAGE2]}
+IMAGES = {"PLAY": [BUTTON_PLAY_IMAGE1, BUTTON_PLAY_IMAGE2],
+          "HIGHSCORES": [BUTTON_HIGHSCORES_IMAGE1, BUTTON_HIGHSCORES_IMAGE2],
+          "EXIT": [BUTTON_EXIT_IMAGE1, BUTTON_EXIT_IMAGE2]}
 
 
-def click_button(button):
+def click_button(button: str):
+    """Changes state of button
+
+    Args:
+        str: which button was clicked
+    """
     WIN.blit(IMAGES[button][1], BUTTONS[button])
     pygame.display.update()
     pygame.time.delay(100)
@@ -100,6 +106,7 @@ def main_menu() -> str:
 
         draw_win()
     return clicked
+
 
 if __name__ == "__main__":
     print(main_menu())

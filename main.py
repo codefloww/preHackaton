@@ -17,20 +17,21 @@ import end_menu
 import highscores
 import pygame
 
+
 def main():
     """Maintains a whole process of application
-    """   
+    """
     pygame.init()
     running = True
-    #event loop
+    # event loop
     while running:
-        #returns which button player have clicked
-        
+        # returns which button player have clicked
+
         option_menu = main_menu.main_menu()
         if option_menu == 'PLAY':
             option_end = 'AGAIN'
             while option_end == "AGAIN":
-                #game()
+                # game()
                 option_end = end_menu()
             if option_end == "HIGHSCORES":
                 highscores.highscores()
@@ -39,4 +40,6 @@ def main():
         else:
             running = False
     pygame.quit()
+
+
 main()
