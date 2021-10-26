@@ -21,9 +21,9 @@ def highscores_main():
 
     # creating a button
     button_menu = pygame.Surface((200, 100))
-    button_menu = pygame.image.load('Assets/space.png')
-    button_menu = pygame.transform.scale(button_menu, (200, 100))
-    screen.blit(button_menu, (550, 550))
+    button_menu = pygame.image.load('Assets/backtomenu1.png')
+    button_menu = pygame.transform.scale(button_menu, (300, 100))
+    screen.blit(button_menu, (500, 550))
     # Making a .Rect object from th e .Surface object
     button_menu = button_menu.get_rect()
 
@@ -58,6 +58,10 @@ def highscores_main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 if button_menu.collidepoint(pos):
+                    button_menu = pygame.image.load('Assets/backtomenu2.png')
+                    button_menu = pygame.transform.scale(button_menu, (300,
+                                                                       100))
+                    screen.blit(button_menu, (500, 550))
                     print('if you can see this then burron works')
 
 
