@@ -41,5 +41,5 @@ def main():
             running = False
     pygame.quit()
 
-
-main()
+if __name__ == "__menu__":
+    main()

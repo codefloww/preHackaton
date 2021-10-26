@@ -87,7 +87,7 @@ def game():
     spells = []
     countdown = ""
     clock = pygame.time.Clock()
-    counter, text = 100, '10'.rjust(3)
+    counter, text = 100, '100'.rjust(3)
     pygame.time.set_timer(TIMER,1000)
     running = True
     while running:
@@ -97,7 +97,12 @@ def game():
                 running = False
             if event.type == TIMER:
                 counter-=1
-                countdown = str(counter).rjust(3) if counter > 0 else pygame.event.post(pygame.QUIT) and 
+                if counter>0:
+                    countdown = str(counter).rjust(3)
+                else:
+                    pygame.event.post(pygame.event.Event(QUIT))
+                    countdown = 0
+                    
             if event.type == BAT_HIT:
                 score += 1
             if event.type == pygame.KEYDOWN:
@@ -115,7 +120,6 @@ def game():
         spell_handle(spells, bats)
         bats_handle(bats, witch)
         draw_win(WIN, witch, spells, bats, score,countdown)
-        print(spells)
     #implement living 3 minutes
     # implement saving a highscore
     highscores=get_highscores()
