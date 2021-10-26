@@ -124,11 +124,12 @@ def game():
     # implement saving a highscore
     highscores=get_highscores()
     if len(highscores)<10:
-        highscores.append(score)
+        highscores.append((str(score)+'\n'))
     for i in range(len(highscores)):
-        if highscores[i]<score:
-            highscores.insert(i,score)
+        if int(highscores[i])<score:
+            highscores.insert(i,(str(score)+'\n'))
     write_highscore(highscores)
+
 
 if __name__ == "__main__":
     game()

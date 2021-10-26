@@ -47,11 +47,11 @@ def draw_win(WIN, highscores_list):
 def get_highscores():
     with open('highscores.txt', 'r') as highscores:
         highscores_list = highscores.readlines()
-    print(highscores_list)
-    for score in highscores_list:
-        highscores_list[highscores_list.index(score)] = score[:-1]
+    for i in range(len(highscores_list)):
+        highscores_list[i] = highscores_list[i][:-1]
     highscores_list.sort(reverse=True)
     highscores_list = highscores_list[:10]
+    print(highscores_list)
     return highscores_list
 
 
