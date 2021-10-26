@@ -15,7 +15,7 @@ TITLE_HEIGHT = HEIGHT*4//16
 MAIN_BACKGROUND = pygame.transform.scale(
     pygame.image.load(
         os.path.join(
-            "Assets", "space.png")), (WIDTH, HEIGHT))
+            "Assets", "menu_background.png")), (WIDTH, HEIGHT))
 # initializing screen
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("NAME OF THE GAME")

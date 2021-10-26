@@ -13,20 +13,20 @@ BAT_HIT = pygame.USEREVENT + 1
 WITCH_HIT = pygame.USEREVENT + 2
 TIMER = pygame.USEREVENT +3
 GAME_BACKGROUND = pygame.transform.scale(pygame.image.load(
-    'Assets/space.png').convert(), (WIDTH, HEIGHT))
+    'Assets/Background.png').convert(), (WIDTH, HEIGHT))
 WITCH_SIZE = (WIDTH*2//16, HEIGHT*2//9)
 WITCH_IMAGE = pygame.image.load(
     os.path.join("Assets", "Witch1.png"))
 WITCH = pygame.transform.scale(
     WITCH_IMAGE, WITCH_SIZE)
-BAT_SIZE = (40, 60)
+BAT_SIZE = (160, 90)
 BAT_IMAGE = pygame.image.load(
-    os.path.join("Assets", "space.png"))
-BAT = pygame.transform.scale(
-    BAT_IMAGE, BAT_SIZE)
-SPELL_SIZE = (30, 10)
+    os.path.join("Assets", "bat2.0.png"))
+BAT = pygame.transform.rotate(pygame.transform.scale(
+    BAT_IMAGE, BAT_SIZE), -90)
+SPELL_SIZE = (90, 90)
 SPELL_IMAGE = pygame.image.load(
-    os.path.join("Assets", "space.png"))
+    os.path.join("Assets", "fireball.png"))
 SPELL = pygame.transform.scale(
     SPELL_IMAGE, SPELL_SIZE)
 SCORE_FONT = pygame.font.SysFont("comicsans", 60)
@@ -138,6 +138,7 @@ def game():
         for i in range(len(highscores)):
             if int(highscores[i])<score:
                 highscores.insert(i,(str(score)))
+                break
     write_highscore(highscores)
 
 

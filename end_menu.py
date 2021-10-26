@@ -5,7 +5,7 @@ from main_menu import WIDTH, HEIGHT, BUTTONS_WIDTH, BUTTONS_HEIGHT
 END_BACKGROUND = pygame.transform.scale(
     pygame.image.load(
         os.path.join(
-            "Assets", "space.png")), (WIDTH, HEIGHT))
+            "Assets", "menu_background.png")), (WIDTH, HEIGHT))
 # button menu
 BUTTON_MENU_IMAGE1 = pygame.transform.scale(pygame.image.load(
     'Assets/backtomenu1.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
