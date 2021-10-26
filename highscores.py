@@ -58,8 +58,7 @@ def highscores_main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 if button_menu.collidepoint(pos):
-                    pass
-    pygame.quit()
+                    print('if you can see this then burron works')
 
 
 if __name__ == '__main__':
