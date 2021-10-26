@@ -15,8 +15,9 @@ BUTTONS_WIDTH = WIDTH*6//16
 BUTTONS_HEIGHT = HEIGHT//9
 TITLE_WIDTH = WIDTH*10//16
 TITLE_HEIGHT = HEIGHT*4//16
-TITLE = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "space.png")), (TITLE_WIDTH, TITLE_HEIGHT))
-TITLE_LABEL = pygame.Rect(WIDTH*3//16,HEIGHT//16,TITLE_WIDTH,TITLE_HEIGHT)
+TITLE = pygame.transform.scale(pygame.image.load(
+    os.path.join("Assets", "space.png")), (TITLE_WIDTH, TITLE_HEIGHT))
+TITLE_LABEL = pygame.Rect(WIDTH*3//16, HEIGHT//16, TITLE_WIDTH, TITLE_HEIGHT)
 
 BUTTON_PLAY = pygame.Rect(WIDTH*5//16, (HEIGHT * 10 //
                           16) - 50, BUTTONS_WIDTH, BUTTONS_HEIGHT)
@@ -33,8 +34,8 @@ EXIT = pygame.USEREVENT + 3
 
 
 def draw_win():
-    WIN.blit(MAIN_BACKGROUND,(0,0))
-    pygame.draw.rect(WIN,BLACK,TITLE_LABEL)
+    WIN.blit(MAIN_BACKGROUND, (0, 0))
+    pygame.draw.rect(WIN, BLACK, TITLE_LABEL)
     pygame.draw.rect(WIN, BLACK, BUTTON_PLAY)
     pygame.draw.rect(WIN, BLACK, BUTTON_HIGHSCORES)
     pygame.draw.rect(WIN, BLACK, BUTTON_EXIT)
@@ -50,14 +51,14 @@ def main_menu():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pos=pygame.mouse.get_pos()
+                pos = pygame.mouse.get_pos()
                 if BUTTON_PLAY.collidepoint(pos):
                     return "PLAY"
                 elif BUTTON_HIGHSCORES.collidepoint(pos):
                     return("HIGHSCORES")
                 elif BUTTON_EXIT.collidepoint(pos):
                     return("EXIT")
-           
+
         draw_win()
     pygame.quit()
 
