@@ -3,6 +3,7 @@ import os
 from pygame.locals import *
 from highscores import get_highscores, write_highscore
 from main_menu import WIDTH, HEIGHT
+import random
 """Need texture for background, texture for witch and obsticles"""
 pygame.font.init()
 FPS = 60
@@ -13,12 +14,12 @@ WITCH_HIT = pygame.USEREVENT + 2
 TIMER = pygame.USEREVENT +3
 GAME_BACKGROUND = pygame.transform.scale(pygame.image.load(
     'Assets/space.png').convert(), (WIDTH, HEIGHT))
-WITCH_SIZE = (WIDTH*3//16, HEIGHT*2//9)
+WITCH_SIZE = (WIDTH*2//16, HEIGHT*2//9)
 WITCH_IMAGE = pygame.image.load(
     os.path.join("Assets", "Witch1.png"))
 WITCH = pygame.transform.scale(
     WITCH_IMAGE, WITCH_SIZE)
-BAT_SIZE = (40, HEIGHT*5//18)
+BAT_SIZE = (40, 60)
 BAT_IMAGE = pygame.image.load(
     os.path.join("Assets", "space.png"))
 BAT = pygame.transform.scale(
@@ -60,13 +61,15 @@ def spell_handle(spells, bats):
             spell.x += SPELL_VEL
         elif spell.x >= (WIDTH//2) - SPELL_SIZE[0]:
             spells.remove(spell)
-
-    for bat in bats:
-        if spells[0].colliderect(bat):
-            pygame.event.post(pygame.event.Event(BAT_HIT))
-            bats.remove(bat)
-        elif spells[0].x > WIDTH:
-            spells.remove(spells[0])
+    if len(spells)!=0:
+        for bat in bats:
+            if spells[0].colliderect(bat):
+                pygame.event.post(pygame.event.Event(BAT_HIT))
+                bats.remove(bat)
+                spells.remove(spells[0])
+                break
+            elif spells[0].x > WIDTH:
+                spells.remove(spells[0])
 
 
 def bats_handle(bats, witch):
@@ -79,7 +82,10 @@ def bats_handle(bats, witch):
             pygame.event.post(pygame.event.Event(BAT_HIT))
 
 
-
+def spam_bats(bats):
+    row = random.randint(0,2)
+    bat=pygame.Rect(WIDTH*15//16,60+200*row,*BAT_SIZE)
+    bats.append(bat)
 
 def game():
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -98,6 +104,7 @@ def game():
             if event.type == pygame.QUIT or event.type == WITCH_HIT:
                 running = False
             if event.type == TIMER:
+                spam_bats(bats)
                 counter-=1
                 if counter>0:
                     countdown = str(counter).rjust(3)
@@ -126,11 +133,11 @@ def game():
     # implement saving a highscore
     highscores=get_highscores()
     if len(highscores)<10:
-        highscores.append((str(score)+'\n'))
+        highscores.append((str(score)))
     else:
         for i in range(len(highscores)):
             if int(highscores[i])<score:
-                highscores.insert(i,(str(score)+'\n'))
+                highscores.insert(i,(str(score)))
     write_highscore(highscores)
 
 

@@ -49,14 +49,19 @@ def get_highscores():
         highscores_list = highscores.readlines()
     for i in range(len(highscores_list)):
         highscores_list[i] = highscores_list[i][:-1]
-    highscores_list.sort(reverse=True)
     highscores_list = highscores_list[:10]
     return highscores_list
 
 
 def write_highscore(highscores):
+    for i in range(len(highscores)):
+        highscores[i] = int(highscores[i])
+    highscores.sort()
+    highscores.reverse()
+    for i in range(len(highscores)):
+        highscores[i] = str(highscores[i])
     with open('highscores.txt', 'w') as file:
-        file.write('\n'.join(highscores))
+        file.write(('\n'.join(highscores)) + '\n')
 
 
 def highscores():
