@@ -1,69 +1,93 @@
 import pygame
-from pygame import font
-from pygame.locals import *
-"""need background texture and exit button texture"""
+import os
+from main_menu import WIDTH, HEIGHT, BUTTONS_WIDTH, BUTTONS_HEIGHT
 
-# Dict of colors, just to not define them with RGB every time, can
-# be broadened.
-colors = {'RED': (255, 0, 0), 'BLUE': (0, 0, 255),
-          'GREEN': (0, 255, 0), 'BLACK': (0, 0, 0),
-          'YELLOW': (255, 255, 0), 'WHITE': (255, 255, 255)}
+# button menu
+MENU_BUTTON_IMAGE1 = pygame.transform.scale(pygame.image.load(
+    'Assets/backtomenu1.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
+MENU_BUTTON_IMAGE2 = pygame.transform.scale(pygame.image.load(
+    'Assets/backtomenu2.png').convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))
+MENU_BUTTON = MENU_BUTTON_IMAGE1.get_rect().move(WIDTH*5//16, HEIGHT*12//16)
+HIGHSCORES_BACKGROUND = pygame.transform.scale(
+    pygame.image.load(
+        os.path.join(
+            "Assets", "space.png")), (WIDTH, HEIGHT))
+pygame.font.init()
 
 
-def highscores_main():
-    """A function that shows high scores list.
+def button_clicked(WIN):
+    """changes state of button
+
+    Args:
+        WIN (screen): A screen on which button placed
     """
-    pygame.init()
-    # setting screen, aming it and giving a bg-color
-    screen = pygame.display.set_mode((1280, 720))
-    pygame.display.set_caption('High Scores')
-    screen.fill('BLACK')
+    WIN.blit(MENU_BUTTON_IMAGE2, MENU_BUTTON)
+    pygame.display.update()
+    pygame.time.delay(100)
 
-    # creating a button
-    button_menu = pygame.Surface((200, 100))
-    button_menu = pygame.image.load('Assets/backtomenu1.png')
-    button_menu = pygame.transform.scale(button_menu, (300, 100))
-    screen.blit(button_menu, (500, 550))
-    # Making a .Rect object from th e .Surface object
-    button_menu = button_menu.get_rect()
 
-    # reading highscores from a local file, sorting them and
-    #  showing top-10 results
-    with open('highscores.txt', 'r') as highscores:
-        highscores_list = highscores.readlines()
-    for score in highscores_list:
-        highscores_list[highscores_list.index(score)] = score[:-1]
-    highscores_list.sort(reverse=True)
-    highscores_list = highscores_list[:10]
+def draw_win(WIN, highscores_list):
+    """updates screen and items of it
 
-    # degining a font from the system fonts
-    myfont = pygame.font.SysFont(None, 40)
-    # A gap btw the first and every next row of scores
+    Args:
+        WIN (screen): A screen which we update
+        highscores_list (list): list of highscores
+    """
+    WIN.blit(HIGHSCORES_BACKGROUND, (0, 0))
+    WIN.blit(MENU_BUTTON_IMAGE1, MENU_BUTTON)
     skip = 0
-
-    # a loop which writes scores on the screen
+    myfont = pygame.font.SysFont('comicsans', 40)
     for score in highscores_list:
         text_img = myfont.render(score, True, 'WHITE')
-        screen.blit(text_img, (550, 100 + skip))
+        WIN.blit(text_img, (550, 100 + skip))
         skip += 40
-
-    # updating screen and starting an event loop
     pygame.display.update()
+
+
+def get_highscores():
+    with open('highscores.txt', 'r') as highscores:
+        highscores_list = highscores.readlines()
+    for i in range(len(highscores_list)):
+        highscores_list[i] = highscores_list[i][:-1]
+    highscores_list = highscores_list[:10]
+    return highscores_list
+
+
+def write_highscore(highscores):
+    for i in range(len(highscores)):
+        highscores[i] = int(highscores[i])
+    highscores.sort()
+    highscores.reverse()
+    for i in range(len(highscores)):
+        highscores[i] = str(highscores[i])
+    with open('highscores.txt', 'w') as file:
+        file.write(('\n'.join(highscores)) + '\n')
+
+
+def highscores():
+    """Maintains highscore menu
+    """
+    highscores_list = get_highscores()
+    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    WIN.blit(HIGHSCORES_BACKGROUND, (0, 0))
     running = True
+    clicked = ''
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            """Тут треба розібратись чого не паше клік"""
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                if button_menu.collidepoint(pos):
-                    button_menu = pygame.image.load('Assets/backtomenu2.png')
-                    button_menu = pygame.transform.scale(button_menu, (300,
-                                                                       100))
-                    screen.blit(button_menu, (500, 550))
-                    print('if you can see this then burron works')
+                if MENU_BUTTON.collidepoint(pos):
+                    clicked = 'MENU'
+                    running = False
+        if clicked != '':
+            button_clicked(WIN)
+            running = False
+        draw_win(WIN, highscores_list)
 
 
-if __name__ == '__main__':
-    highscores_main()
+if __name__ == "__main__":
+    highscores()
+
