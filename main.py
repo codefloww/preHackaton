@@ -30,7 +30,7 @@ def main():
         if option_menu == 'PLAY':
             option_end = 'AGAIN'
             while option_end == "AGAIN":
-                game()
+                #game()
                 option_end = end_menu()
             if option_end == "HIGHSCORES":
                 highscores.highscores()
