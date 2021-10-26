@@ -79,6 +79,8 @@ def bats_handle(bats, witch):
             pygame.event.post(pygame.event.Event(BAT_HIT))
 
 
+
+
 def game():
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
     witch = pygame.Rect(50, 200, *WITCH_SIZE)
@@ -125,9 +127,10 @@ def game():
     highscores=get_highscores()
     if len(highscores)<10:
         highscores.append((str(score)+'\n'))
-    for i in range(len(highscores)):
-        if int(highscores[i])<score:
-            highscores.insert(i,(str(score)+'\n'))
+    else:
+        for i in range(len(highscores)):
+            if int(highscores[i])<score:
+                highscores.insert(i,(str(score)+'\n'))
     write_highscore(highscores)
 
 

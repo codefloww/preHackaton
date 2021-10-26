@@ -51,7 +51,6 @@ def get_highscores():
         highscores_list[i] = highscores_list[i][:-1]
     highscores_list.sort(reverse=True)
     highscores_list = highscores_list[:10]
-    print(highscores_list)
     return highscores_list
 
 
