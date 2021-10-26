@@ -11,7 +11,7 @@ SPELL_VEL = 5
 BAT_VEL = 5
 BAT_HIT = pygame.USEREVENT + 1
 WITCH_HIT = pygame.USEREVENT + 2
-TIMER = pygame.USEREVENT +3
+TIMER = pygame.USEREVENT + 3
 GAME_BACKGROUND = pygame.transform.scale(pygame.image.load(
     'Assets/Background.png').convert(), (WIDTH, HEIGHT))
 WITCH_SIZE = (WIDTH*2//16, HEIGHT*2//9)
@@ -32,13 +32,13 @@ SPELL = pygame.transform.scale(
 SCORE_FONT = pygame.font.SysFont("comicsans", 60)
 
 
-def draw_win(WIN, witch, spells, bats, score,countdown):
+def draw_win(WIN, witch, spells, bats, score, countdown):
     WIN.blit(GAME_BACKGROUND, (0, 0))
     your_score = SCORE_FONT.render(str(score), 1, (255, 255, 255))
     WIN.blit(your_score, (WIDTH//2, HEIGHT*8//9))
     WIN.blit(WITCH, (witch.x, witch.y))
-    countdown = SCORE_FONT.render(str(countdown),1,(255,255,255))
-    WIN.blit(countdown,(WIDTH*15//16,HEIGHT*8//9))
+    countdown = SCORE_FONT.render(str(countdown), 1, (255, 255, 255))
+    WIN.blit(countdown, (WIDTH*15//16, HEIGHT*8//9))
     if len(spells) != 0:
         WIN.blit(SPELL, (spells[0].x, spells[0].y))
 
@@ -61,7 +61,7 @@ def spell_handle(spells, bats):
             spell.x += SPELL_VEL
         elif spell.x >= (WIDTH//2) - SPELL_SIZE[0]:
             spells.remove(spell)
-    if len(spells)!=0:
+    if len(spells) != 0:
         for bat in bats:
             if spells[0].colliderect(bat):
                 pygame.event.post(pygame.event.Event(BAT_HIT))
@@ -83,9 +83,10 @@ def bats_handle(bats, witch):
 
 
 def spam_bats(bats):
-    row = random.randint(0,2)
-    bat=pygame.Rect(WIDTH*15//16,60+200*row,*BAT_SIZE)
+    row = random.randint(0, 2)
+    bat = pygame.Rect(WIDTH*15//16, 60+200*row, *BAT_SIZE)
     bats.append(bat)
+
 
 def game():
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -96,7 +97,7 @@ def game():
     countdown = ""
     clock = pygame.time.Clock()
     counter, text = 100, '100'.rjust(3)
-    pygame.time.set_timer(TIMER,1000)
+    pygame.time.set_timer(TIMER, 1000)
     running = True
     while running:
         clock.tick(FPS)
@@ -105,13 +106,13 @@ def game():
                 running = False
             if event.type == TIMER:
                 spam_bats(bats)
-                counter-=1
-                if counter>0:
+                counter -= 1
+                if counter > 0:
                     countdown = str(counter).rjust(3)
                 else:
                     pygame.event.post(pygame.event.Event(QUIT))
                     countdown = 0
-                    
+
             if event.type == BAT_HIT:
                 score += 1
             if event.type == pygame.KEYDOWN:
@@ -128,16 +129,16 @@ def game():
             running = False
         spell_handle(spells, bats)
         bats_handle(bats, witch)
-        draw_win(WIN, witch, spells, bats, score,countdown)
-    #implement living 3 minutes
+        draw_win(WIN, witch, spells, bats, score, countdown)
+    # implement living 3 minutes
     # implement saving a highscore
-    highscores=get_highscores()
-    if len(highscores)<10:
+    highscores = get_highscores()
+    if len(highscores) < 10:
         highscores.append((str(score)))
     else:
         for i in range(len(highscores)):
-            if int(highscores[i])<score:
-                highscores.insert(i,(str(score)))
+            if int(highscores[i]) < score:
+                highscores.insert(i, (str(score)))
                 break
     write_highscore(highscores)
 

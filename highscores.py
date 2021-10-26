@@ -90,4 +90,3 @@ def highscores():
 
 if __name__ == "__main__":
     highscores()
-
