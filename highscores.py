@@ -44,9 +44,7 @@ def draw_win(WIN, highscores_list):
     pygame.display.update()
 
 
-def highscores():
-    """Maintains highscore menu
-    """
+def get_highscores():
     with open('highscores.txt', 'r') as highscores:
         highscores_list = highscores.readlines()
     print(highscores_list)
@@ -54,7 +52,18 @@ def highscores():
         highscores_list[highscores_list.index(score)] = score[:-1]
     highscores_list.sort(reverse=True)
     highscores_list = highscores_list[:10]
+    return highscores_list
 
+
+def write_highscore(highscores):
+    with open('highscores.txt', 'w') as file:
+        file.write('\n'.join(highscores))
+
+
+def highscores():
+    """Maintains highscore menu
+    """
+    highscores_list = get_highscores()
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
     WIN.blit(HIGHSCORES_BACKGROUND, (0, 0))
     running = True

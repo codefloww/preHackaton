@@ -21,7 +21,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("NAME OF THE GAME")
 # creating and adding to screen title
 TITLE = pygame.transform.scale(pygame.image.load(
-    os.path.join("Assets", "space.png")), (TITLE_WIDTH, TITLE_HEIGHT))
+    os.path.join("Assets", "Witch1.png")), (TITLE_WIDTH, TITLE_HEIGHT))
 TITLE_LABEL = TITLE.get_rect().move(WIDTH*3//16, HEIGHT//16)
 # creating buttons with images
 # button play
