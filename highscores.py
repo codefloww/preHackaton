@@ -11,7 +11,7 @@ MENU_BUTTON = MENU_BUTTON_IMAGE1.get_rect().move(WIDTH*5//16, HEIGHT*12//16)
 HIGHSCORES_BACKGROUND = pygame.transform.scale(
     pygame.image.load(
         os.path.join(
-            "Assets", "menu_background.png")), (WIDTH, HEIGHT))
+            "Assets", "menu_board.png")), (WIDTH, HEIGHT))
 pygame.font.init()
 
 
