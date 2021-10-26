@@ -104,6 +104,7 @@ def main_menu() -> str:
                 click_button(clicked)
                 running = False
 
+
         draw_win()
     return clicked
 

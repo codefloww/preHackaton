@@ -72,6 +72,7 @@ def highscores():
     WIN.blit(HIGHSCORES_BACKGROUND, (0, 0))
     running = True
     clicked = ''
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -89,3 +90,4 @@ def highscores():
 
 if __name__ == "__main__":
     highscores()
+
